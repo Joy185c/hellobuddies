@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hello Buddies</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navholder"><div class="brand" onclick="scrollToSection('top')"> <img src="image.png" alt="Logo" class="logo"> </div>
+    <div class="title brand">Hello<span> Buddies</span></div></div>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#offers">Offers</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#" onclick="openProfile()">Profile</a></li>
+      <li><a href="#" onclick="openCart()">🛒 <span id="cart-count">0</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="balance-badge">৳<span id="nav-balance">0</span></div>
+      <button class="btn ghost" onclick="openAuth()" id="auth-btn">Sign In</button>
+      <button class="btn ghost" onclick="openAdmin()">Admin</button>
+    </div>
+  </nav>
+
+
+
+
+  <!-- Hero / Banner -->
+  <header class="hero" id="top">
+    <div class="hero-overlay"></div>
+    <img id="banner-img" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop" alt="Banner">
+    <div class="hero-content">
+      <h1 id="banner-title">Welcome to Hello Buddies</h1>
+      <p id="banner-subtitle">Trendy Clothes • Trusted Quality • Best Price</p>
+      <div class="ticker">
+        <span>🔥 20% Off New Arrivals</span>
+        <span>🚚 Free Delivery over ৳1000</span>
+        <span>🎁 Earn 50 Points per Order</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Products -->
+  <section id="products" class="section">
+    <div class="section-head">
+      <h2>Our Products</h2>
+      <div class="chip">White + Yellow Premium UI</div>
+    </div>
+    <div id="product-list" class="product-grid"></div>
+  </section>
+
+  <!-- Offers -->
+  <section id="offers" class="section soft">
+    <div class="section-head">
+      <h2>Special Offers</h2>
+    </div>
+    <div class="offers-banner">
+      <div class="offers-slider" id="offers-slider">
+        <div class="offer-card">🎉 Buy 2 Get 1 Free (Selected)</div>
+        <div class="offer-card">⚡ Midnight Flash Sale (9–11 PM)</div>
+        <div class="offer-card">🧥 Winter Hoodie Combo ৳1990</div>
+        <div class="offer-card">👖 Denim Week – Flat 15% Off</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="section">
+    <div class="section-head">
+      <h2>Customer Reviews</h2>
+    </div>
+    <div id="review-list" class="review-list"></div>
+    <form id="review-form" class="card form">
+      <div class="grid-2">
+        <input type="text" id="reviewer" placeholder="Your Name" required/>
+        <input type="text" id="review-title" placeholder="Review Title (optional)"/>
+      </div>
+      <textarea id="review-text" placeholder="Write your review..." required></textarea>
+      <button type="submit" class="btn">Submit Review</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div>
+        <h3>👕 Hello Buddies</h3>
+        <p>Quality wear. Quick support. Seamless shopping.</p>
+        <a class="btn whats" href="https://wa.me/8801722052432" target="_blank">WhatsApp: 01722052432</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li>Hotline: 01521702979</li>
+          <li>Payment: bKash 01722052432</li>
+          <li>Delivery: 3–5 business days</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Account</h4>
+        <ul>
+          <li><a href="#" onclick="openAuth()">Sign In / Up</a></li>
+          <li><a href="#" onclick="openProfile()">Profile</a></li>
+          <li><a href="#" onclick="openCart()">Cart</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">© 2025 Hello Buddies — All rights reserved.</div>
+  </footer>
+
+  <!-- Floating buttons -->
+  <div class="float-stack">
+    <button class="float-btn" title="Chat Buddy" onclick="toggleChat()">💬</button>
+    <a class="float-btn whats" title="WhatsApp" target="_blank" href="https://wa.me/8801722052432">🟢</a>
+  </div>
+
+  <!-- Chatbot -->
+  <div id="chatbot" class="chatbot">
+    <div class="chat-head">🤖 Buddy <span onclick="toggleChat()">✖</span></div>
+    <div id="chat-body" class="chat-body"></div>
+    <div class="chat-input">
+      <input id="chat-message" type="text" placeholder="Ask about sizes, price, delivery...">
+      <button class="btn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3>Your Cart</h3>
+        <span class="close" onclick="closeCart()">✖</span>
+      </div>
+      <div id="cart-items" class="cart-items"></div>
+      <div class="cart-footer">
+        <div class="totals">
+          <div>Total: <b>৳<span id="cart-total">0</span></b></div>
+        </div>
+        <div class="actions">
+          <button class="btn ghost" onclick="clearCart()">Clear</button>
+          <button class="btn" onclick="checkout()">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3>Checkout</h3>
+        <span class="close" onclick="closeCheckout()">✖</span>
+      </div>
+      <div id="checkout-summary" class="mini-list"></div>
+      <label>Delivery Address</label>
+      <textarea id="delivery-address" rows="2" placeholder="House, Road, Area, City" required></textarea>
+
+      <label>Payment Method</label>
+      <select id="payment-method" onchange="toggleTrxInput()">
+        <option value="cod">Cash on Delivery</option>
+        <option value="bkash">bKash (01722052432)</option>
+      </select>
+
+      <div id="trx-wrap" style="display:none;">
+        <label>Transaction ID</label>
+        <input id="trx-id" type="text" placeholder="Enter bKash trxID"/>
+      </div>
+
+      <button class="btn full" onclick="placeOrder()">Place Order</button>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profile-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3>Your Profile</h3>
+        <span class="close" onclick="closeProfile()">✖</span>
+      </div>
+
+      <div class="profile-box card">
+        <div class="grid-2">
+          <div><b>Name:</b> <span id="profile-name">Guest</span></div>
+          <div><b>Email:</b> <span id="profile-email">-</span></div>
+          <div><b>Phone:</b> <span id="profile-phone">-</span></div>
+          <div><b>Address:</b> <span id="profile-address">-</span></div>
+        </div>
+        <div class="grid-2 mt8">
+          <div class="badge big">Balance: ৳<span id="profile-balance">0</span></div>
+          <div class="badge big">Points: <span id="profile-points">0</span></div>
+        </div>
+        <div class="mt12">
+          <button class="btn" onclick="openProfileEdit()">Edit Profile</button>
+          <button class="btn ghost" onclick="openAddBalance()">Add Balance (bKash)</button>
+          <button class="btn danger" onclick="signOut()">Sign Out</button>
+        </div>
+      </div>
+
+      <h4 class="mt16">Your Orders</h4>
+      <div id="profile-orders" class="mini-list"></div>
+    </div>
+  </div>
+
+  <!-- Profile Edit Modal -->
+  <div id="profile-edit-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3>Edit Profile</h3>
+        <span class="close" onclick="closeProfileEdit()">✖</span>
+      </div>
+      <div class="grid-2">
+        <input id="edit-name" type="text" placeholder="Your Name">
+        <input id="edit-phone" type="text" placeholder="Phone">
+      </div>
+      <input id="edit-address" type="text" placeholder="Address">
+      <button class="btn full" onclick="saveProfileEdit()">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Add Balance Modal -->
+  <div id="add-balance-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3>Add Balance (bKash)</h3>
+        <span class="close" onclick="closeAddBalance()">✖</span>
+      </div>
+      <div class="card">
+        <p><b>bKash Number:</b> 01722052432</p>
+        <p>Send money to this number, then enter the amount and trxID.</p>
+      </div>
+      <div class="grid-2">
+        <input id="add-amount" type="number" placeholder="Amount (৳)">
+        <input id="add-trx" type="text" placeholder="bKash trxID">
+      </div>
+      <button class="btn full" onclick="confirmAddBalance()">Confirm Add</button>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3>Sign In / Sign Up</h3>
+        <span class="close" onclick="closeAuth()">✖</span>
+      </div>
+      <div class="grid-2">
+        <input id="auth-name" type="text" placeholder="Full Name (Sign Up)">
+        <input id="auth-phone" type="text" placeholder="Phone (optional)">
+      </div>
+      <input id="auth-email" type="email" placeholder="Email" required>
+      <input id="auth-pass" type="password" placeholder="Password" required>
+      <div class="grid-2 mt8">
+        <button class="btn" onclick="signUp()">Sign Up</button>
+        <button class="btn ghost" onclick="signIn()">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Modal -->
+  <div id="admin-modal" class="modal">
+    <div class="modal-content admin">
+      <div class="modal-head">
+        <h3>Admin Panel</h3>
+        <span class="close" onclick="closeAdmin()">✖</span>
+      </div>
+
+      <!-- Banner Control -->
+      <div class="card">
+        <h4>Banner Control</h4>
+        <input id="banner-img-url" type="text" placeholder="Banner Image URL">
+        <input id="banner-text" type="text" placeholder="Banner Title">
+        <input id="banner-sub" type="text" placeholder="Banner Subtitle">
+        <button class="btn" onclick="updateBanner()">Update Banner</button>
+      </div>
+
+      <!-- Product Control -->
+      <div class="card">
+        <h4>Products</h4>
+        <div class="grid-2">
+          <input id="p-name" type="text" placeholder="Name">
+          <input id="p-price" type="number" placeholder="Price">
+        </div>
+        <div class="grid-2">
+          <input id="p-sizes" type="text" placeholder="Sizes (S,M,L,XL)">
+          <input id="p-img" type="text" placeholder="Image URL">
+        </div>
+        <button class="btn" onclick="addProduct()">Add Product</button>
+        <div id="admin-products" class="mini-list mt8"></div>
+      </div>
+
+      <!-- Orders -->
+      <div class="card">
+        <h4>Orders</h4>
+        <div id="order-history" class="mini-list"></div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="card">
+        <h4>Reviews</h4>
+        <div id="admin-reviews" class="mini-list"></div>
+      </div>
+
+      <!-- Chatbot Replies -->
+      <div class="card">
+        <h4>Buddy Replies</h4>
+        <div class="grid-2">
+          <input id="bot-question" type="text" placeholder="Question keyword">
+          <input id="bot-reply" type="text" placeholder="Reply text">
+        </div>
+        <button class="btn" onclick="addBotReply()">Save Reply</button>
+        <div id="bot-replies" class="mini-list mt8"></div>
+      </div>
+
+      <!-- Secret Code -->
+      <div class="card">
+        <h4>Change Secret Code</h4>
+        <input id="verify-code" type="password" placeholder="Enter 540274">
+        <input id="new-secret" type="password" placeholder="New Secret Code">
+        <button class="btn" onclick="changeSecret()">Update Code</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
